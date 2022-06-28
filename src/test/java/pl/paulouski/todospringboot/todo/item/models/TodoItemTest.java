@@ -14,11 +14,14 @@ public class TodoItemTest {
     }
 
     @Test
+    public void shouldHaveIdAfterCreation() {
+        Assertions.assertNotNull(item.getId());
+    }
+    @Test
     public void shouldHaveATitleAndADescription() {
         Assertions.assertAll(
                 () -> Assertions.assertEquals("Test todo", item.getTitle()),
                 () -> Assertions.assertEquals("Make test working!", item.getDescription())
-
         );
     }
 
