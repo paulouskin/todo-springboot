@@ -27,6 +27,13 @@ public class TodoListTest {
         );
     }
 
+    @Test
+    public void shouldAddTodoItemIntoList() {
+        var item = service.create("Item 1", "Description 1");
+        list.add(item);
+        Assertions.assertTrue(list.containsItem("Item 1"));
+    }
+
 
 
 }

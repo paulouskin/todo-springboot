@@ -11,6 +11,8 @@ public class TodoItem implements Toggleable{
     private TodoItemStatus status;
     private final String id;
 
+    private String listId;
+
     public TodoItem(String title, String description) {
         this.title = title;
         this.description = description;
@@ -71,7 +73,12 @@ public class TodoItem implements Toggleable{
     public String getId() {
         return id;
     }
-
+    public String getListId() {
+        return listId;
+    }
+    public void setListId(String listId) {
+        this.listId = listId;
+    }
     @Override
     public String toString() {
         return "TodoItem{" +
