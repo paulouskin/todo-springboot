@@ -4,19 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.paulouski.todospringboot.todo.item.exceptions.InvalidTodoItemParametersException;
 import pl.paulouski.todospringboot.todo.item.models.TodoItem;
+import pl.paulouski.todospringboot.todo.item.repositories.TodoItemRepository;
 
 @Service
 public class TodoItemService {
 
-    @Autowired
     private TodoItemValidationService validationService;
-
+    private TodoItemRepository repository;
     public TodoItemService() {
-        this.validationService = new TodoItemValidationService();
     }
 
-    public TodoItemService(TodoItemValidationService validationService) {
+    @Autowired
+    public TodoItemService(TodoItemValidationService validationService, TodoItemRepository repository) {
         this.validationService = validationService;
+        this.repository = repository;
     }
 
     public TodoItem create(String title, String description) {
@@ -50,5 +51,11 @@ public class TodoItemService {
         }
     }
 
+    public TodoItemValidationService getValidationService() {
+        return validationService;
+    }
 
+    public void setValidationService(TodoItemValidationService validationService) {
+        this.validationService = validationService;
+    }
 }

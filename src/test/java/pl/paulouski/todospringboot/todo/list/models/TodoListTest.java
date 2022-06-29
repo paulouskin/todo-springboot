@@ -3,6 +3,8 @@ package pl.paulouski.todospringboot.todo.list.models;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import pl.paulouski.todospringboot.todo.configuration.ProjectConfiguration;
 import pl.paulouski.todospringboot.todo.item.services.TodoItemService;
 
 public class TodoListTest {
@@ -13,7 +15,8 @@ public class TodoListTest {
     @BeforeEach
     public void classSetUp() {
         list = new TodoList("List for test purpose");
-        service = new TodoItemService();
+        var ctx = new AnnotationConfigApplicationContext(ProjectConfiguration.class);
+        service = ctx.getBean(TodoItemService.class);
     }
 
     @Test
