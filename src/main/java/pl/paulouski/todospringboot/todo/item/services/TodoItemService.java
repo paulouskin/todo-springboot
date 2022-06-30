@@ -4,18 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.paulouski.todospringboot.todo.item.exceptions.InvalidTodoItemParametersException;
 import pl.paulouski.todospringboot.todo.item.models.TodoItem;
-import pl.paulouski.todospringboot.todo.item.repositories.TodoItemRepository;
+import pl.paulouski.todospringboot.todo.item.dao.JdbcTodoItemDAO;
 
 @Service
 public class TodoItemService {
 
     private TodoItemValidationService validationService;
-    private TodoItemRepository repository;
+    private JdbcTodoItemDAO repository;
     public TodoItemService() {
     }
 
     @Autowired
-    public TodoItemService(TodoItemValidationService validationService, TodoItemRepository repository) {
+    public TodoItemService(TodoItemValidationService validationService, JdbcTodoItemDAO repository) {
         this.validationService = validationService;
         this.repository = repository;
     }

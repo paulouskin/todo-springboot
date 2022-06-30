@@ -20,6 +20,14 @@ public class TodoItem implements Toggleable{
         id = UUID.randomUUID().toString();
     }
 
+    public TodoItem(String id, String title, String description, TodoItemStatus status, String listId) {
+        this.title = title;
+        this.description = description;
+        this.status = status;
+        this.id = id;
+        this.listId = listId;
+    }
+
     public TodoItem() {
         id = UUID.randomUUID().toString();
     }

@@ -3,23 +3,23 @@ package pl.paulouski.todospringboot.todo.list.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.paulouski.todospringboot.todo.list.models.TodoList;
-import pl.paulouski.todospringboot.todo.list.repositories.TodoListRepository;
+import pl.paulouski.todospringboot.todo.list.dao.JdbcTodoListDAO;
 
 @Service
 public class TodoListService {
 
-    TodoListRepository repository;
+    JdbcTodoListDAO repository;
 
     @Autowired
-    public TodoListService(TodoListRepository repository) {
+    public TodoListService(JdbcTodoListDAO repository) {
         this.repository = repository;
     }
 
-    public TodoListRepository getRepository() {
+    public JdbcTodoListDAO getRepository() {
         return repository;
     }
 
-    public void setRepository(TodoListRepository repository) {
+    public void setRepository(JdbcTodoListDAO repository) {
         this.repository = repository;
     }
 
