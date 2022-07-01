@@ -13,7 +13,7 @@ CREATE TABLE items
     title VARCHAR(200) NOT NULL,
     description VARCHAR(300) NOT NULL,
     status VARCHAR(50) NOT NULL,
-    listId VARCHAR(30),
+    listId VARCHAR(50),
     PRIMARY KEY (id),
     FOREIGN KEY (listId) REFERENCES lists(id)
 );

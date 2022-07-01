@@ -13,7 +13,6 @@ public class TodoItemDAOTest {
 
     @Autowired
     private JdbcTodoItemDAO dao;
-
     @Autowired
     private TodoItemService service;
 

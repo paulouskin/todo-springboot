@@ -70,7 +70,11 @@ public class JdbcTodoItemDAO implements TodoItemDAO {
 
     @Override
     public boolean existById(String id) {
-        return jdbcTemplate.queryForObject("select exists(select 1 from items where id=?)",
-                Boolean.class, id);
+        return Boolean.TRUE.equals(jdbcTemplate.queryForObject("select exists(select 1 from items where id=?)",
+                Boolean.class, id));
+    }
+
+    public List<TodoItem> getItemsForList(String listId) {
+        return jdbcTemplate.query("select * from items where listId=?", itemMapper, listId);
     }
 }
