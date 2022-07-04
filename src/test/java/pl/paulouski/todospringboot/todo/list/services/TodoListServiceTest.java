@@ -1,29 +1,24 @@
 package pl.paulouski.todospringboot.todo.list.services;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import pl.paulouski.todospringboot.todo.configuration.ProjectConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import pl.paulouski.todospringboot.todo.item.models.TodoItem;
 import pl.paulouski.todospringboot.todo.item.services.TodoItemService;
 import pl.paulouski.todospringboot.todo.list.models.TodoList;
 
+@SpringBootTest
 public class TodoListServiceTest {
 
-    private static TodoListService listService;
-    private static TodoItemService itemService;
+    @Autowired
+    private TodoListService listService;
+    @Autowired
+    private TodoItemService itemService;
 
     private TodoList testList;
     private TodoItem testItem;
-
-    @BeforeAll
-    public static void classSetUp() {
-        var ctx = new AnnotationConfigApplicationContext(ProjectConfiguration.class);
-        listService = ctx.getBean(TodoListService.class);
-        itemService = ctx.getBean(TodoItemService.class);
-    }
 
     @BeforeEach
     public void setUp() {
