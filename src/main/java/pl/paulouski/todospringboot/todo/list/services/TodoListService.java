@@ -32,7 +32,11 @@ public class TodoListService {
         return repository.findById(listId).orElseThrow(TodoListNotFoundException::new);
     }
 
-    public void save(TodoList list) {
-        repository.save(list);
+    public String save(TodoList list) {
+        return repository.save(list);
+    }
+
+    public Iterable<TodoList> getAllLists() {
+        return repository.findAll();
     }
 }

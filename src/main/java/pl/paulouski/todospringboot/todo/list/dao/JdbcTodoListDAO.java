@@ -29,12 +29,13 @@ public class JdbcTodoListDAO implements TodoListDAO {
     }
 
     @Override
-    public void save(TodoList list) {
+    public String save(TodoList list) {
         Map<String, Object> params = new HashMap<>();
         params.put("id", list.getId());
         params.put("title", list.getTitle());
         listInsert.execute(params);
         list.getItems().forEach(itemDAO::save);
+        return list.getId();
     }
 
     @Override
@@ -48,7 +49,7 @@ public class JdbcTodoListDAO implements TodoListDAO {
 
     @Override
     public List<TodoList> findAll() {
-        return null;
+        return jdbcTemplate.query("select * from lists", listMapper);
     }
 
     @Override
