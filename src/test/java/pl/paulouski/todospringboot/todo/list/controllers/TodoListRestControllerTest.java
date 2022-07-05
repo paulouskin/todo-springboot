@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.event.annotation.BeforeTestClass;
 import org.springframework.test.context.event.annotation.BeforeTestExecution;
 import org.springframework.transaction.annotation.Transactional;
+import pl.paulouski.todospringboot.todo.errorhandlers.ErrorDetails;
 import pl.paulouski.todospringboot.todo.item.services.TodoItemService;
 import pl.paulouski.todospringboot.todo.list.models.TodoList;
 import pl.paulouski.todospringboot.todo.list.services.TodoListService;
@@ -51,14 +52,12 @@ public class TodoListRestControllerTest {
                 list1 -> assertEquals("Test list", list1.getTitle())
         );
     }
-
     @Test
     public void shouldGetOnlyListParametersWithoutQuery() {
         listService.save(list);
         ResponseEntity<TodoList[]> lists = template.getForEntity("/lists", TodoList[].class);
         assertEquals(listId, Objects.requireNonNull(lists.getBody())[0].getId());
     }
-
     @Test
     public void shouldCreateListAndReturnItsId() {
         ResponseEntity<String> entity = template.postForEntity("/list", list, String.class);
@@ -68,6 +67,13 @@ public class TodoListRestControllerTest {
         );
     }
 
-
+    @Test
+    public void shouldFetchingNonExistingListResultInBadRequest() {
+        ResponseEntity<ErrorDetails> entity = template.getForEntity("/list?id=0000", ErrorDetails.class);
+        Optional<ErrorDetails> error = Optional.ofNullable(entity.getBody());
+        error.ifPresent(
+                errorDetails -> assertEquals("List with specified id not found.", errorDetails.getMessage())
+        );
+    }
 
 }
