@@ -65,7 +65,7 @@ public class JdbcTodoItemDAO implements TodoItemDAO {
 
     @Override
     public void delete(TodoItem item) {
-
+        jdbcTemplate.update("delete from items where id=?", item.getId());
     }
 
     @Override

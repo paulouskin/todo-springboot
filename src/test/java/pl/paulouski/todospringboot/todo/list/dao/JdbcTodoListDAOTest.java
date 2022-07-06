@@ -22,12 +22,10 @@ public class JdbcTodoListDAOTest {
     @Test
     public void shouldSaveListAndGetItFromDB() {
         TodoList list = service.createList("Test list");
-        list.add(TodoItem.of("Test item 1", "Description 1"));
         dao.save(list);
         TodoList listFromDb = dao.findById(list.getId()).get();
         Assertions.assertAll(
-                () -> Assertions.assertEquals(list.getTitle(), listFromDb.getTitle()),
-                () -> Assertions.assertTrue(listFromDb.containsItem("Test item 1"))
+                () -> Assertions.assertEquals(list.getTitle(), listFromDb.getTitle())
         );
 
     }

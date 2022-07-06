@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import pl.paulouski.todospringboot.todo.list.models.DeleteResponse;
 import pl.paulouski.todospringboot.todo.list.models.TodoList;
 import pl.paulouski.todospringboot.todo.list.services.TodoListService;
 
@@ -20,8 +21,13 @@ public class TodoListRestController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<TodoList> getList(@RequestParam(name = "id", required = false)String listId){
+    public ResponseEntity<TodoList> getList(@RequestParam(name = "id")String listId){
         return ResponseEntity.ok(service.getList(listId));
+    }
+
+    @DeleteMapping("/list")
+    public ResponseEntity<DeleteResponse> deleteList(@RequestParam(name = "id")String listId){
+        return ResponseEntity.ok(service.delete(listId));
     }
 
     @GetMapping("/lists")

@@ -34,17 +34,15 @@ public class JdbcTodoListDAO implements TodoListDAO {
         params.put("id", list.getId());
         params.put("title", list.getTitle());
         listInsert.execute(params);
-        list.getItems().forEach(itemDAO::save);
         return list.getId();
     }
 
     @Override
     public Optional<TodoList> findById(String id) {
         if (!existById(id)) return Optional.empty();
-        var items = itemDAO.getItemsForList(id);
-        var list = jdbcTemplate.queryForObject("select * from lists where id=?", listMapper, id);
-        Objects.requireNonNull(list).addAll(items);
-        return Optional.of(list);
+        return Optional.of(
+                jdbcTemplate.queryForObject("select * from lists where id=?", listMapper, id)
+        );
     }
 
     @Override
@@ -59,12 +57,16 @@ public class JdbcTodoListDAO implements TodoListDAO {
 
     @Override
     public void delete(TodoList list) {
-
+        jdbcTemplate.update("delete from lists where id=?", list.getId());
     }
 
     @Override
     public boolean existById(String id) {
         return Boolean.TRUE.equals(jdbcTemplate.queryForObject("select exists(select 1 from lists where id=?)",
                 Boolean.class, id));
+    }
+
+    public void deleteById(String listId) {
+        jdbcTemplate.update("delete from lists where id=?", listId);
     }
 }
