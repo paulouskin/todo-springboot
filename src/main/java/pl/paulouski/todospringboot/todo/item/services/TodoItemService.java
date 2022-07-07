@@ -3,6 +3,7 @@ package pl.paulouski.todospringboot.todo.item.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.paulouski.todospringboot.todo.item.exceptions.InvalidTodoItemParametersException;
+import pl.paulouski.todospringboot.todo.item.exceptions.ItemNotFoundException;
 import pl.paulouski.todospringboot.todo.item.models.TodoItem;
 import pl.paulouski.todospringboot.todo.item.dao.JdbcTodoItemDAO;
 
@@ -69,5 +70,12 @@ public class TodoItemService {
     }
     public List<TodoItem> getItemsForList(String listId) {
         return repository.getItemsForList(listId);
+    }
+
+    public TodoItem getItem(String listId, String itemId) {
+        return repository.getItemsForList(listId)
+                .stream()
+                .filter(item -> item.getId().equals(itemId))
+                .findFirst().orElseThrow(ItemNotFoundException::new);
     }
 }

@@ -2,11 +2,14 @@ package pl.paulouski.todospringboot.todo.list.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.paulouski.todospringboot.todo.item.models.TodoItem;
 import pl.paulouski.todospringboot.todo.item.services.TodoItemService;
 import pl.paulouski.todospringboot.todo.list.dao.JdbcTodoListDAO;
 import pl.paulouski.todospringboot.todo.list.exceptions.TodoListNotFoundException;
 import pl.paulouski.todospringboot.todo.list.models.DeleteResponse;
 import pl.paulouski.todospringboot.todo.list.models.TodoList;
+
+import java.util.List;
 
 @Service
 public class TodoListService {
@@ -51,5 +54,15 @@ public class TodoListService {
         itemService.getItemsForList(listId).forEach(itemService::delete);
         listDAO.deleteById(listId);
         return new DeleteResponse(String.format("List with Id '%s' have been deleted", listId));
+    }
+
+    public List<TodoItem> getListItems(String id) {
+        return itemService.getItemsForList(id);
+    }
+
+    public TodoItem addItemToList(String id, TodoItem item) {
+        item.setListId(id);
+        itemService.save(item);
+        return item;
     }
 }

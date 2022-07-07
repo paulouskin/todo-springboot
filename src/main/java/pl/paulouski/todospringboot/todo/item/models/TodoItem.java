@@ -9,7 +9,7 @@ public class TodoItem implements Toggleable{
     private String title;
     private String description;
     private TodoItemStatus status;
-    private final String id;
+    private String id;
 
     private String listId;
 
@@ -29,7 +29,6 @@ public class TodoItem implements Toggleable{
     }
 
     public TodoItem() {
-        id = UUID.randomUUID().toString();
     }
 
     public TodoItem(TodoItem source) {
@@ -87,6 +86,7 @@ public class TodoItem implements Toggleable{
     public void setListId(String listId) {
         this.listId = listId;
     }
+
     @Override
     public String toString() {
         return "TodoItem{" +
@@ -94,6 +94,7 @@ public class TodoItem implements Toggleable{
                 ", description='" + description + '\'' +
                 ", status=" + status +
                 ", id='" + id + '\'' +
+                ", listId='" + listId + '\'' +
                 '}';
     }
 }
