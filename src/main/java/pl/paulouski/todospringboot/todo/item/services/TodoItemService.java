@@ -6,6 +6,8 @@ import pl.paulouski.todospringboot.todo.item.exceptions.InvalidTodoItemParameter
 import pl.paulouski.todospringboot.todo.item.models.TodoItem;
 import pl.paulouski.todospringboot.todo.item.dao.JdbcTodoItemDAO;
 
+import java.util.List;
+
 @Service
 public class TodoItemService {
 
@@ -57,5 +59,15 @@ public class TodoItemService {
 
     public void setValidationService(TodoItemValidationService validationService) {
         this.validationService = validationService;
+    }
+
+    public void delete(TodoItem item) {
+        repository.delete(item);
+    }
+    public void save(TodoItem item) {
+        repository.save(item);
+    }
+    public List<TodoItem> getItemsForList(String listId) {
+        return repository.getItemsForList(listId);
     }
 }

@@ -20,17 +20,17 @@ public class TodoListRestController {
         this.service = service;
     }
 
+    @GetMapping("/list/{id}")
+    public ResponseEntity<TodoList> getList(@PathVariable String id){
+        return ResponseEntity.ok(service.getList(id));
+    }
+
+    @DeleteMapping("/list/{id}")
+    public ResponseEntity<DeleteResponse> deleteList(@PathVariable String id){
+        return ResponseEntity.ok(service.delete(id));
+    }
+
     @GetMapping("/list")
-    public ResponseEntity<TodoList> getList(@RequestParam(name = "id")String listId){
-        return ResponseEntity.ok(service.getList(listId));
-    }
-
-    @DeleteMapping("/list")
-    public ResponseEntity<DeleteResponse> deleteList(@RequestParam(name = "id")String listId){
-        return ResponseEntity.ok(service.delete(listId));
-    }
-
-    @GetMapping("/lists")
     public ResponseEntity<Iterable<TodoList>> getLists(){
         return ResponseEntity.ok(service.getAllLists());
     }

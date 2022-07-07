@@ -35,7 +35,7 @@ public class JdbcTodoItemDAO implements TodoItemDAO {
     }
 
     @Override
-    public void save(TodoItem item) {
+    public TodoItem save(TodoItem item) {
         Map<String, Object> params = new HashMap<>();
         params.put("id", item.getId());
         params.put("title", item.getTitle());
@@ -43,6 +43,7 @@ public class JdbcTodoItemDAO implements TodoItemDAO {
         params.put("status", item.getStatus().toString());
         params.put("listId", item.getListId());
         itemInsert.execute(params);
+        return item;
     }
 
     @Override

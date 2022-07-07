@@ -2,18 +2,18 @@ package pl.paulouski.todospringboot.todo.list.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.paulouski.todospringboot.todo.item.dao.JdbcTodoItemDAO;
+import pl.paulouski.todospringboot.todo.item.services.TodoItemService;
+import pl.paulouski.todospringboot.todo.list.dao.JdbcTodoListDAO;
 import pl.paulouski.todospringboot.todo.list.exceptions.TodoListNotFoundException;
 import pl.paulouski.todospringboot.todo.list.models.DeleteResponse;
 import pl.paulouski.todospringboot.todo.list.models.TodoList;
-import pl.paulouski.todospringboot.todo.list.dao.JdbcTodoListDAO;
 
 @Service
 public class TodoListService {
     @Autowired
     JdbcTodoListDAO listDAO;
     @Autowired
-    JdbcTodoItemDAO itemDAO;
+    TodoItemService itemService;
 
     public TodoListService(JdbcTodoListDAO listDAO) {
         this.listDAO = listDAO;
@@ -33,13 +33,13 @@ public class TodoListService {
 
     public TodoList getList(String listId) {
         var list =  listDAO.findById(listId).orElseThrow(TodoListNotFoundException::new);
-        list.addAll(itemDAO.getItemsForList(listId));
+        list.addAll(itemService.getItemsForList(listId));
         return list;
     }
 
     public String save(TodoList list) {
         String listId = listDAO.save(list);
-        list.getItems().forEach(itemDAO::save);
+        list.getItems().forEach(itemService::save);
         return listId;
     }
 
@@ -48,7 +48,7 @@ public class TodoListService {
     }
 
     public DeleteResponse delete(String listId) {
-        itemDAO.getItemsForList(listId).forEach(itemDAO::delete);
+        itemService.getItemsForList(listId).forEach(itemService::delete);
         listDAO.deleteById(listId);
         return new DeleteResponse(String.format("List with Id '%s' have been deleted", listId));
     }

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface TodoItemDAO {
 
-    void save(TodoItem item);
+    TodoItem save(TodoItem item);
 
     Optional<TodoItem> findById(String id);
 
