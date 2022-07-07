@@ -29,6 +29,7 @@ public class TodoItem implements Toggleable{
     }
 
     public TodoItem() {
+        id = UUID.randomUUID().toString();
     }
 
     public TodoItem(TodoItem source) {

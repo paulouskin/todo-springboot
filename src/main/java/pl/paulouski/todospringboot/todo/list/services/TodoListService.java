@@ -61,6 +61,7 @@ public class TodoListService {
     }
 
     public TodoItem addItemToList(String id, TodoItem item) {
+        var list = listDAO.findById(id).orElseThrow(TodoListNotFoundException::new);
         item.setListId(id);
         itemService.save(item);
         return item;

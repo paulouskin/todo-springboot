@@ -122,4 +122,15 @@ public class TodoListRestControllerTest {
                 item -> Assertions.assertEquals(listId, item.getListId())
         );
     }
+
+    @Test
+    public void shouldFailWhileAddingItemIntoNonExistingList(){
+        String fakeId = "62862hjhj288";
+        String endpoint = String.format("/list/%s/item", fakeId);
+        var newItem = itemService.create("Brand new item", "Some interesting need to be done");
+        ResponseEntity<ErrorDetails> response = template.postForEntity(endpoint, newItem, ErrorDetails.class);
+        Optional.ofNullable(response.getBody()).ifPresent(
+                error -> Assertions.assertNotNull(error.getMessage())
+        );
+    }
 }
