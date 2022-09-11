@@ -1,6 +1,6 @@
 # Todo list REST web service (Spring Boot)
 
-Repo to play with Spring by Example ;-)
+Repo to play with Spring by Example.
 
 ### !!! Moved project to GitLab to play with built-in CI also
 
